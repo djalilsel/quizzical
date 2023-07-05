@@ -34,8 +34,8 @@ main{
 }
 
 .shape1 {
-	width: 200px;
-	height: 150px;
+	width: 150px;
+	height: 100px;
     position:absolute;
     top: 0;
     right: 0;
@@ -45,8 +45,8 @@ main{
 	border-radius: 60px 0px  60px 900px;
 }
 .shape2 {
-	width: 200px;
-	height: 150px;
+	width: 150px;
+	height: 100px;
     position:absolute;
     top: 500;
     right: 500;
@@ -54,4 +54,8 @@ main{
 	-moz-border-radius: 0px 0px  20px 110px;
 	-webkit-border-radius: 0px 0px  20px 110px;
 	border-radius:   60px 900px 60px 0px;
+}
+
+.second--container{
+  padding: 110px 80px;
 }
