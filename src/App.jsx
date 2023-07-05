@@ -10,7 +10,7 @@ function App() {
   const [page, setPage] = useState(1)
   const [pageWidth, setPageWidth] = useState(window.innerWidth)
   const [pageHeight, setPageHeight] = useState(window.innerHeight)
-  const [questions, setQuestions] = useState([])
+  const [data, setAnswers] = useState([])
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5&category=22&type=multiple")
     .then(res => res.json())
-    .then(data => setQuestions(data.results))
+    .then(data => setAnswers(data.results))
     
   }, [])
 
@@ -56,10 +56,27 @@ function App() {
   function startquiz(){
     setPage(2)
   }
-  console.log(questions)
-  const Questions = questions.map(data => {
+
+  function getAnswerslist(incorrect, correct){
+    const answers = [...incorrect]
+    const randIndex = Math.floor(Math.random() * 4)
+    answers.splice(randIndex, 0, correct)
+    return (specialdecode(answers))
+
+  }
+  
+
+
+  console.log(data)
+  const Questions = data.map((data, index) => {
+    console.log(index)
     return(
-      <Quest key={nanoid()} specialdecode={() => specialdecode(data.question)} />
+      <Quest 
+      key={nanoid()} 
+      ind={index} 
+      data={data} 
+      answers={() => getAnswerslist(data.incorrect_answers, data.correct_answer)} 
+      quesions={() => specialdecode(data.question)} />
       )
   })
 
