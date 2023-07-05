@@ -8,6 +8,7 @@ import './Main.css'
 export default function Main(props) {
 
   let i = 0
+  
   const [page, setPage] = useState(1)
   const [pageWidth, setPageWidth] = useState(window.innerWidth)
   const [pageHeight, setPageHeight] = useState(window.innerHeight)
@@ -33,15 +34,15 @@ export default function Main(props) {
   }, [])
 
   
-  console.log(data)
+
 
   function startquiz(){
     setPage(2)
   }
 
   function specialdecode(quest){
-    console.log(quest)
-    JSON.stringify(quest)
+ 
+    
     let decoded
     if(quest.includes('&')){
 
