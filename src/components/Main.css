@@ -57,5 +57,33 @@ main{
   }
   
   .second--container{
-    padding: 110px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+
+  .bottom--container{
+    margin-top: 10px;
+  }
+
+  .submit--btn{
+    display: inline-block;
+    height: 45px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4D5B9E;
+    color: #F5F7FB;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+  }
+  
+  .correctanswers{
+    display: inline-block;
+  }
+
+
+
+

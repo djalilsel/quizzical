@@ -8,15 +8,16 @@ import './Main.css'
 export default function Main(props) {
 
   let i = 0
-  
+  let randIndex = []
+  let answers
+
   const [page, setPage] = useState(1)
   const [pageWidth, setPageWidth] = useState(window.innerWidth)
   const [pageHeight, setPageHeight] = useState(window.innerHeight)
   const [data, setData] = useState([])
-  let radios = {}
-  let radiosIds = []
+  const [finalScreen, setFinalScreen] = useState(false)
 
-
+  
   useEffect(() => {
     setData(props.data)
   }, [page])
@@ -38,67 +39,11 @@ export default function Main(props) {
   }, [])
 
   
-  let fuck
-  
-  useEffect(() => {
-    clearTimeout()
-  }, [fuck])
-  
-  
-
-  function getIds(index) {
-    const timeout1 = setTimeout(() => {
-      for(let j = 0; j < 4; j++){         
-      radios[j] = document.getElementById(`id ${index} ${j}`)
-    }
-
-    
-    radiosIds[index] = radios
-    
-    }, 1000);
-
-    useEffect(() => {
-      clearTimeout(timeout1)
-    }, [radiosIds])
-  }
-  
   function startquiz(){
-  
-    const timeout2 = setTimeout(() => {
-      const khra = radiosIds
-      fuck = 2
-      console.log(khra)
-    }, 2000);
-
-    
-
     setPage(2)
-    
   }
-
-  let Questions = data.map((data, index) => {
-    return(
-        <Quest 
-        key={nanoid()} 
-        ind={index} 
-        data={data}
-        correct={data.correct_answer} 
-        answers={() => getAnswerslist(data.incorrect_answers, data.correct_answer)} 
-        quesions={() => specialdecode(data.question)} 
-        getIds={() =>getIds(index)}
-        />
-        )
-    })
-      
-
-  
-    
-
-    
 
   function specialdecode(quest){
- 
-    
     let decoded
     if(quest.includes('&')){
 
@@ -116,13 +61,16 @@ export default function Main(props) {
     }
     return(decoded)
   }
-
   
 
-  function getAnswerslist(incorrect, correct){
+  for(let j = 0; j < 5; j++){
+    randIndex[j] = Math.floor(Math.random() * 4)
+  }
+
+  function getAnswerslist(index, incorrect, correct){
     const answers = [...incorrect]
-    const randIndex = Math.floor(Math.random() * 4)
-    answers.splice(randIndex, 0, correct)
+    
+    answers.splice(randIndex[index], 0, correct)
     
     let decodedAnswers = []
     for(let j = 0; j<4; j++){
@@ -133,10 +81,23 @@ export default function Main(props) {
     
   }
 
-  
-  
-  
+  function finalstage(){
+    setFinalScreen(true)
+  }
 
+
+
+  let Questions = data.map((data, index) => {
+    return(
+        <Quest 
+        key={nanoid()} 
+        correct={data.correct_answer} 
+        answers={() => getAnswerslist(index, data.incorrect_answers, data.correct_answer)} 
+        quesions={() => specialdecode(data.question)} 
+        />
+        )
+    })
+  
   return (
     page === 1 ? 
       <main style={{height:`${innerHeight}px`}}>
@@ -149,9 +110,13 @@ export default function Main(props) {
         <div className="shape2" style={{top:`${innerHeight - 100}px`, right:`${innerWidth - 150}px`}}></div>
       </main>
     : 
-    <div className="second--container">
-      <div>
+    <div className="second--container" style={{height:`${innerHeight}px`}}>
+      <div className='questions--container'>
         {Questions}
+      </div>
+      <div className="bottom--container">
+        {finalScreen && <p className='correctanswers'>You got 0/5 answers right</p>}
+        <button className='submit--btn' onClick={finalstage}>Submit</button>
       </div>
       <div className="shape1"></div>
       <div className="shape2" style={{top:`${innerHeight - 100}px`, right:`${innerWidth - 150}px`}}></div>
