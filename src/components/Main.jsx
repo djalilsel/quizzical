@@ -82,7 +82,7 @@ export default function Main(props) {
   }
 
   function finalstage(){
-    setFinalScreen(true)
+    
   }
 
 
