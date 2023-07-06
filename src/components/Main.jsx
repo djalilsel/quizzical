@@ -13,16 +13,20 @@ export default function Main(props) {
   const [pageWidth, setPageWidth] = useState(window.innerWidth)
   const [pageHeight, setPageHeight] = useState(window.innerHeight)
   const [data, setData] = useState([])
+  let radios = {}
+  let radiosIds = []
 
 
   useEffect(() => {
     setData(props.data)
   }, [page])
+
   useEffect(() => {
     window.addEventListener("resize", () => {
       setPageWidth(window.innerWidth)
     })
   }, [])
+
   useEffect(() => {
     
     if(i === 0){
@@ -34,11 +38,63 @@ export default function Main(props) {
   }, [])
 
   
+  let fuck
+  
+  useEffect(() => {
+    clearTimeout()
+  }, [fuck])
+  
+  
 
+  function getIds(index) {
+    const timeout1 = setTimeout(() => {
+      for(let j = 0; j < 4; j++){         
+      radios[j] = document.getElementById(`id ${index} ${j}`)
+    }
 
-  function startquiz(){
-    setPage(2)
+    
+    radiosIds[index] = radios
+    
+    }, 1000);
+
+    useEffect(() => {
+      clearTimeout(timeout1)
+    }, [radiosIds])
   }
+  
+  function startquiz(){
+  
+    const timeout2 = setTimeout(() => {
+      const khra = radiosIds
+      fuck = 2
+      console.log(khra)
+    }, 2000);
+
+    
+
+    setPage(2)
+    
+  }
+
+  let Questions = data.map((data, index) => {
+    return(
+        <Quest 
+        key={nanoid()} 
+        ind={index} 
+        data={data}
+        correct={data.correct_answer} 
+        answers={() => getAnswerslist(data.incorrect_answers, data.correct_answer)} 
+        quesions={() => specialdecode(data.question)} 
+        getIds={() =>getIds(index)}
+        />
+        )
+    })
+      
+
+  
+    
+
+    
 
   function specialdecode(quest){
  
@@ -67,24 +123,19 @@ export default function Main(props) {
     const answers = [...incorrect]
     const randIndex = Math.floor(Math.random() * 4)
     answers.splice(randIndex, 0, correct)
+    
     let decodedAnswers = []
     for(let j = 0; j<4; j++){
       decodedAnswers[j] = specialdecode(answers[j])
     }
+    decodedAnswers.push(randIndex)
     return (decodedAnswers)
+    
   }
 
-  const Questions = data.map((data, index) => {
-
-    return(
-      <Quest 
-      key={nanoid()} 
-      ind={index} 
-      data={data} 
-      answers={() => getAnswerslist(data.incorrect_answers, data.correct_answer)} 
-      quesions={() => specialdecode(data.question)} />
-      )
-  })
+  
+  
+  
 
   return (
     page === 1 ? 
