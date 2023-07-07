@@ -82,7 +82,7 @@ export default function Main(props) {
   }
 
   function finalstage(){
-    
+    console.log("You just submited ur answers Thank YOU!!!")
   }
 
 

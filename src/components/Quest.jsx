@@ -19,6 +19,7 @@ export default function Quest(props) {
             setClass2("answers")
             setClass3("answers")
             setClass4("answers")
+            index = 0
         }
         else if(index === 2){
             setClass2("answers selected")
@@ -40,7 +41,7 @@ export default function Quest(props) {
         }
     }
     
-    //this is the sec branch
+    
 
     
 
