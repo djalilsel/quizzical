@@ -8,7 +8,6 @@ import './Main.css'
 export default function Main(props) {
 
   let i = 0
-  let randIndex = []
   let answers
 
   const [page, setPage] = useState(1)
@@ -63,20 +62,18 @@ export default function Main(props) {
   }
   
 
-  for(let j = 0; j < 5; j++){
-    randIndex[j] = Math.floor(Math.random() * 4)
-  }
+  
 
   function getAnswerslist(index, incorrect, correct){
     const answers = [...incorrect]
     
-    answers.splice(randIndex[index], 0, correct)
+    answers.splice(props.randIndex[index], 0, correct)
     
     let decodedAnswers = []
     for(let j = 0; j<4; j++){
       decodedAnswers[j] = specialdecode(answers[j])
     }
-    decodedAnswers.push(randIndex)
+    decodedAnswers.push(props.randIndex)
     return (decodedAnswers)
     
   }

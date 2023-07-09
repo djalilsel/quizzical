@@ -4,7 +4,9 @@ import './App.css'
 
 function App() {
 
+  let randIndex = []
   
+
     const [data, setData] = React.useState([])
   
     React.useEffect(() => {
@@ -14,8 +16,12 @@ function App() {
       
     }, [])
 
+    for(let j = 0; j < 5; j++){
+      randIndex[j] = Math.floor(Math.random() * 4)
+    }
+
     return(
-      <Main data={data} />
+      <Main data={data} randIndex={randIndex}/>
     )
 }
 
