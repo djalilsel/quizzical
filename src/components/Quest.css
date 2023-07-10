@@ -36,3 +36,13 @@ hr{
     color: #293264;
     margin-top: 10px;
 }
+
+.correct{
+    background-color: #94D7A2;
+    border: none;
+}
+
+.wrong{
+    background-color: #F8BCBC;
+    border: none;
+}

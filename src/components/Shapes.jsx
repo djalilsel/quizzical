@@ -23,7 +23,7 @@ export default function Shapes(){
         
       }, [])
 
-      console.log("Shapes rendered")
+    
 
     return(
         <React.Fragment>

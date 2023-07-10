@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, memo, useMemo, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Quest from './Quest'
 import Shapes from './Shapes'
 import { decode } from 'html-entities'
@@ -10,15 +10,15 @@ export default function Main(props) {
 
   let i = 0
   let answers
+  let arrayTest = []
 
+  const [finalScreen, setFinalScreen] = useState(false)
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
-  const [finalScreen, setFinalScreen] = useState(false)
+  const [correction, setCorrection] = useState([])
+  const [userAnswer, setUserAnswer] = useState([])
+  
 
-
-  //
-    
-  //
 
 
   useEffect(() => {
@@ -26,7 +26,6 @@ export default function Main(props) {
   }, [page])
 
 
-  console.log("Main rendered")
   
   function startquiz(){
     setPage(2)
@@ -68,37 +67,71 @@ export default function Main(props) {
     
   }
 
+  
+  
+
   function finalstage(){
-    console.log("You just submited ur answers Thank YOU!!!")
-  }
-
-  
-
-  
-
-  function saveState(){
-    console.log("hello")
-  }
 
     
     
-    const rundermyshit = useCallback(() => {
-      
-      return data.map((datas, index) => {
-        return(
-          <Quest 
-            key={nanoid()} 
-            correct={datas.correct_answer} 
-            answers={() => getAnswerslist(index, datas.incorrect_answers, datas.correct_answer)} 
-            quesions={() => specialdecode(datas.question)} 
-            page={page}
-            class={(clas) => saveState(clas)}
-          />
-        )})
+    for( let e = 0; e < 5; e++ ){
+      arrayTest[e] = userAnswers[e] === "" ?  false : true
     }
-    )
+    if(arrayTest.every(value => value === true)){
+      for( let r = 0; r < 5; r++ ){
+        const value = props.randIndex[r] === userAnswers[r] ?  true : false
+        setCorrection(prevCorrection => {
+          return ([...prevCorrection, value])
+        })
+      }
+      
+      setUserAnswer(userAnswers)
+      setFinalScreen(true)
+    }
+    else{
+      console.log("Answer them all")
+    }
     
-    const Questions = useMemo(rundermyshit)
+  }
+  let userAnswers = ["", "", "", "", ""]
+  
+  function setUserAnswers(answer, index){
+    userAnswers[index] = answer
+  }
+  
+
+  
+
+    
+    
+    const Questions = data.map((datas, index) => {
+        if(finalScreen){
+          return(
+            <Quest 
+              key={nanoid()}
+              ind={index}
+              answers={() => getAnswerslist(index, datas.incorrect_answers, datas.correct_answer)} 
+              quesions={() => specialdecode(datas.question)}
+              sendAnswers={(one, another) => setUserAnswers(one, another)}
+              finalScreen={finalScreen}
+              correction={correction}
+              userAnswers={userAnswer}
+            />
+          )
+        }
+        else{
+          return(
+            <Quest 
+              key={nanoid()} 
+              ind={index}
+              answers={() => getAnswerslist(index, datas.incorrect_answers, datas.correct_answer)} 
+              quesions={() => specialdecode(datas.question)} 
+              sendAnswers={(one, another) => setUserAnswers(one, another)}
+              finalScreen={finalScreen}
+            />
+          )}
+      })
+    
 
     
   
