@@ -25,6 +25,7 @@
     font-weight: 900;
     font-size: 0.9em;
     margin: 5px 20px;
+    cursor: pointer;
 }
 .selected{
     background-color: #D6DBF5;

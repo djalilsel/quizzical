@@ -1,6 +1,7 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, memo, useMemo, useCallback } from 'react'
 import Quest from './Quest'
+import Shapes from './Shapes'
 import { decode } from 'html-entities'
 import { nanoid } from 'nanoid'
 import './Main.css'
@@ -11,32 +12,21 @@ export default function Main(props) {
   let answers
 
   const [page, setPage] = useState(1)
-  const [pageWidth, setPageWidth] = useState(window.innerWidth)
-  const [pageHeight, setPageHeight] = useState(window.innerHeight)
   const [data, setData] = useState([])
   const [finalScreen, setFinalScreen] = useState(false)
 
-  
+
+  //
+    
+  //
+
+
   useEffect(() => {
     setData(props.data)
   }, [page])
 
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setPageWidth(window.innerWidth)
-    })
-  }, [])
 
-  useEffect(() => {
-    
-    if(i === 0){
-      window.addEventListener("resize", () => {
-        setPageHeight(window.innerHeight)
-        i++
-      })
-    }
-  }, [])
-
+  console.log("Main rendered")
   
   function startquiz(){
     setPage(2)
@@ -82,18 +72,36 @@ export default function Main(props) {
     console.log("You just submited ur answers Thank YOU!!!")
   }
 
+  
 
+  
 
-  let Questions = data.map((data, index) => {
-    return(
-        <Quest 
-        key={nanoid()} 
-        correct={data.correct_answer} 
-        answers={() => getAnswerslist(index, data.incorrect_answers, data.correct_answer)} 
-        quesions={() => specialdecode(data.question)} 
-        />
-        )
-    })
+  function saveState(){
+    console.log("hello")
+  }
+
+    
+    
+    const rundermyshit = useCallback(() => {
+      
+      return data.map((datas, index) => {
+        return(
+          <Quest 
+            key={nanoid()} 
+            correct={datas.correct_answer} 
+            answers={() => getAnswerslist(index, datas.incorrect_answers, datas.correct_answer)} 
+            quesions={() => specialdecode(datas.question)} 
+            page={page}
+            class={(clas) => saveState(clas)}
+          />
+        )})
+    }
+    )
+    
+    const Questions = useMemo(rundermyshit)
+
+    
+  
   
   return (
     page === 1 ? 
@@ -103,8 +111,7 @@ export default function Main(props) {
           <p>Just a simple Quiz Game don't over think it</p>
           <button className='start--btn' onClick={startquiz}>Start quiz</button>
         </div>
-        <div className="shape1"></div>
-        <div className="shape2" style={{top:`${innerHeight - 100}px`, right:`${innerWidth - 150}px`}}></div>
+        <Shapes />
       </main>
     : 
     <div className="second--container" style={{height:`${innerHeight}px`}}>
@@ -115,9 +122,7 @@ export default function Main(props) {
         {finalScreen && <p className='correctanswers'>You got 0/5 answers right</p>}
         <button className='submit--btn' onClick={finalstage}>Submit</button>
       </div>
-      <div className="shape1"></div>
-      <div className="shape2" style={{top:`${innerHeight - 100}px`, right:`${innerWidth - 150}px`}}></div>
-    
+      <Shapes />
     </div>
     
   )

@@ -1,0 +1,22 @@
+.shape1 {
+    width: 150px;
+    height: 100px;
+    position:absolute;
+    top: 0;
+    right: 0;
+      background: #ffcd00;
+    -moz-border-radius: 0px 0px  20px 110px;
+    -webkit-border-radius: 0px 0px  20px 110px;
+    border-radius: 60px 0px  60px 900px;
+}
+.shape2 {
+    width: 150px;
+    height: 100px;
+    position:absolute;
+    top: 500;
+    right: 500;
+      background: #5986ba;
+    -moz-border-radius: 0px 0px  20px 110px;
+    -webkit-border-radius: 0px 0px  20px 110px;
+    border-radius:   60px 900px 60px 0px;
+}
