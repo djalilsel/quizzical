@@ -43,13 +43,26 @@ main{
   }
 
   .bottom--container{
-    margin-top: 10px;
+    margin-top: 15px;
   }
 
   .submit--btn{
     display: inline-block;
+    height: 50px;
+    width: 130px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4D5B9E;
+    color: #F5F7FB;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .playagain--btn{
+    display: inline-block;
     height: 45px;
-    width: 80px;
+    width: 110px;
     border: none;
     border-radius: 5px;
     background-color: #4D5B9E;
@@ -62,6 +75,11 @@ main{
   
   .correctanswers{
     display: inline-block;
+    color: #293264;
+    font-family: 'Inter', sans-serif;
+    font-weight: bolder;
+    font-size: 1rem;
+    margin-right: 10px;
   }
 
 

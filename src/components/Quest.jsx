@@ -59,26 +59,20 @@ export default function Quest(props) {
                     setClass4("answers correct")
                 }
             } else{
-                console.log(props.userAnswers)
                 if(props.userAnswers[props.ind] === 0){
-                    console.log("im annoying 1")
                     setClass1("answers wrong")
                 }
                 else if(props.userAnswers[props.ind] === 1){
-                    console.log("im annoying 1")
                     setClass2("answers wrong")
                 }
                 else if(props.userAnswers[props.ind] === 2){
-                    console.log("im annoying 1")
                     setClass3("answers wrong")
                 }
                 else if(props.userAnswers[props.ind] === 3){
-                    console.log("im annoying 1")
                     setClass4("answers wrong")
                 }
                 if(corrIndex === 0){
                     setClass1("answers correct")
-                    console.log("im annoying 2")
                 }
                 else if(corrIndex === 1){
                     setClass2("answers correct")

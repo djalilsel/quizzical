@@ -17,13 +17,19 @@ export default function Main(props) {
   const [data, setData] = useState([])
   const [correction, setCorrection] = useState([])
   const [userAnswer, setUserAnswer] = useState([])
+  const [correctAnswers, setCorrectAnswers] = useState(0)
   
 
-
+  useEffect(() => {
+    if(props.pagee === 2){
+      setPage(2)
+      setFinalScreen(false)
+    }
+  }, [props.playAgain])
 
   useEffect(() => {
     setData(props.data)
-  }, [page])
+  }, [page, props.playAgain])
 
 
   
@@ -71,25 +77,27 @@ export default function Main(props) {
   
 
   function finalstage(){
-
-    
     
     for( let e = 0; e < 5; e++ ){
       arrayTest[e] = userAnswers[e] === "" ?  false : true
     }
     if(arrayTest.every(value => value === true)){
       for( let r = 0; r < 5; r++ ){
-        const value = props.randIndex[r] === userAnswers[r] ?  true : false
+        const value = props.randIndex[r] === userAnswers[r] ?  true  : false
+        if(props.randIndex[r] === userAnswers[r]){
+          setCorrectAnswers(prevCorrectAnswers => (prevCorrectAnswers + 1))
+        }
         setCorrection(prevCorrection => {
           return ([...prevCorrection, value])
         })
+        
       }
       
       setUserAnswer(userAnswers)
       setFinalScreen(true)
     }
     else{
-      console.log("Answer them all")
+      window.alert("Answer all the questions!")
     }
     
   }
@@ -132,8 +140,7 @@ export default function Main(props) {
           )}
       })
     
-
-    
+  
   
   
   return (
@@ -152,10 +159,17 @@ export default function Main(props) {
         {Questions}
       </div>
       <div className="bottom--container">
-        {finalScreen && <p className='correctanswers'>You got 0/5 answers right</p>}
-        <button className='submit--btn' onClick={finalstage}>Submit</button>
+        {finalScreen && 
+         <p className='correctanswers'>You got {correctAnswers}/5 answers right</p>}
+
+        {!finalScreen && 
+         <button className='submit--btn' onClick={finalstage}>Check answers</button> }
+
+        {finalScreen && 
+         <button className='playagain--btn' onClick={props.playAgain}>Play Again</button>}
+
       </div>
-      <Shapes />
+      
     </div>
     
   )
